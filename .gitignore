@@ -6,3 +6,5 @@
 03-pokedex/node_modules
 03-pokedex/mongo
 03-pokedex/dist
+
+**/dist/
