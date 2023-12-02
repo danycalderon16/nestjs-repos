@@ -13,6 +13,7 @@ const serve_static_1 = require("@nestjs/serve-static");
 const pokemon_module_1 = require("./pokemon/pokemon.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const common_module_1 = require("./common/common.module");
+const seed_module_1 = require("./seed/seed.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -24,7 +25,8 @@ exports.AppModule = AppModule = __decorate([
             }),
             mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/nest-pokemon'),
             pokemon_module_1.PokemonModule,
-            common_module_1.CommonModule
+            common_module_1.CommonModule,
+            seed_module_1.SeedModule
         ],
     })
 ], AppModule);
