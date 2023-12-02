@@ -1,5 +1,8 @@
 01-typescript-intro/node_modules
-02-car-dealership/node_modules
-03-pokedex/node_modules
 
-/03-pokedex/mongo/
+02-car-dealership/node_modules
+02-car-dealership/dist
+
+03-pokedex/node_modules
+03-pokedex/mongo
+03-pokedex/dist
