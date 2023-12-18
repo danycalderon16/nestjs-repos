@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
-import { UpdateAuthDto } from './dto/update-auth.dto';
-import { CreateUserDto } from './dto/create-user.dto';
+import {  } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/auth.entity';
 import * as bcrypt  from 'bcrypt';
+import { LoginUserDto, CreateUserDto} from './dto';
 
 @Injectable()
 export class AuthService {
@@ -28,20 +28,21 @@ export class AuthService {
     }
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  async login(loginUserDto:LoginUserDto){
+ 
+      const {password, email } = loginUserDto;
+      const user = await this.userRepository.findOne({
+        where:{email},
+        select: {email:true, password:true}
+      });
+    
+      if(!user){
+        throw new BadRequestException('Credentials are not valid (email)')
+      }
+      if(!bcrypt.compareSync(password,user.password)){
+        throw new BadRequestException('Credentials are not valid (password)')
+      }
+      return user;
   }
 
   private hanldeDBErrors(error: any): never{
