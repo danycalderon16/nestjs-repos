@@ -6,8 +6,10 @@ import { GetUser } from './decorators/get-user.decorator';
 import { User } from './entities/auth.entity';
 import { GetRawHeaders } from './decorators/get-raw-headers.decorator';
 import { UserRoleGuard } from './guards/user-role/user-role.guard';
-import { META_ROLES, RoleProtected } from './decorators/role-protected/role-protected.decorator';
+import { META_ROLES, RoleProtected } from './decorators/role-protected.decorator';
 import { Validroles } from './interfaces';
+import { Auth } from './decorators';
+
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -41,6 +43,17 @@ export class AuthController {
   @RoleProtected(Validroles.superUser,Validroles.admin)
   @UseGuards(AuthGuard(),UserRoleGuard)
   private2(
+   @GetUser() user:User,
+  ){ 
+    
+    return {
+      ok:true,
+      user
+    }
+  }
+  @Get('private3')
+  @Auth()
+  private3(
    @GetUser() user:User,
   ){ 
     
