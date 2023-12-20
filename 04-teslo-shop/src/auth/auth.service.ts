@@ -10,6 +10,7 @@ import { JwtPayload } from './interfaces/jwt-payload.interface';
 
 @Injectable()
 export class AuthService {
+ 
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
@@ -33,6 +34,10 @@ export class AuthService {
     } catch (error) {
       this.hanldeDBErrors(error)
     }
+  }
+
+  checkAuthStatus(user: User) {
+    return {...user,token: this.getJwToken({id: user.id})}
   }
 
   async login(loginUserDto:LoginUserDto){

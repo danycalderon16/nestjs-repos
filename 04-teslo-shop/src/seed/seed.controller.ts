@@ -7,7 +7,7 @@ export class SeedController {
   constructor(private readonly seedService: SeedService) {}
 
   @Get()
-  @Auth(Validroles.admin)
+  // @Auth(Validroles.admin)
   executeSeed() {
     return this.seedService.runSeed();
   }
